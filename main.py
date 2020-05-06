@@ -10,17 +10,13 @@ def tts(texto, save="./teste.mp3", slow=False, lang="pt-br"):  # ok
     voice.save(save)
 
 
-def tts_array(textos=[], output="./output.mp3", tmp="./tmp.mp3", delay_virgula=200, delay_ponto=500, lang="pt-br",
+def tts_array(textos=[], output="./output.mp3", tmp="./tmp.mp3", delay=200, lang="pt-br",
               slow=False):  # ok
     tts(textos[0], save=tmp, lang=lang, slow=slow)
     audio = AudioSegment.from_mp3(tmp)
     textos.remove(textos[0])
     for texto in textos[0:]:
-        if texto == ",":
-            audio += AudioSegment.silent(duration=delay_virgula)
-        elif texto == ".":
-            audio += AudioSegment.silent(duration=delay_ponto)
-        else:
+            audio += AudioSegment.silent(duration=delay)
             tts(texto, save=tmp, lang=lang, slow=slow)
             audio += AudioSegment.from_mp3(tmp)
     os.remove(tmp)
