@@ -58,6 +58,19 @@ def stt(lang="pt-br"):
         except Exception as e:
             print(e)
             return stt(lang)
+        
+def stt_file(file_mp3,lang="pt-br"):
+    r=sr.Recognizer()
+    with  sr.AudioFile(file_mp3) as source:
+        r.adjust_for_ambient_noise(source)
+        print("diga algo")
+        audio=r.listen(source)
+        try:
+            captado=r.recognize_google(audio,language=lang)
+            return(captado)
+        except Exception as e:
+            print(e)
+            return stt(lang)
 # tts_string(
 #     "esse é um teste da nova função,se tudo estiver funcionando corretamente,haverão duas pequenas pausas.seguidas por uma longa pausa",
 #     output="teste.mp3")
